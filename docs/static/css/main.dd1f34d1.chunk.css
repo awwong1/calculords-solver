@@ -1,0 +1,2 @@
+.form{display:grid;justify-content:space-around;grid-auto-flow:row;grid-row-gap:1em;row-gap:1em}@media (min-width:612px){.form{grid-auto-flow:column}}.label{display:grid}body{background-color:#000;color:#fff;margin:0;font-family:monospace;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+/*# sourceMappingURL=main.dd1f34d1.chunk.css.map */

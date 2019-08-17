@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/calculords-solver/static/css/main.dd1f34d1.chunk.css",
+    "main.js": "/calculords-solver/static/js/main.351a1384.chunk.js",
+    "main.js.map": "/calculords-solver/static/js/main.351a1384.chunk.js.map",
+    "runtime~main.js": "/calculords-solver/static/js/runtime~main.7ae7bccb.js",
+    "runtime~main.js.map": "/calculords-solver/static/js/runtime~main.7ae7bccb.js.map",
+    "static/js/2.9e8e698f.chunk.js": "/calculords-solver/static/js/2.9e8e698f.chunk.js",
+    "static/js/2.9e8e698f.chunk.js.map": "/calculords-solver/static/js/2.9e8e698f.chunk.js.map",
+    "index.html": "/calculords-solver/index.html",
+    "precache-manifest.6a8d10e4169774bfa7f258153d11f1e4.js": "/calculords-solver/precache-manifest.6a8d10e4169774bfa7f258153d11f1e4.js",
+    "service-worker.js": "/calculords-solver/service-worker.js",
+    "static/css/main.dd1f34d1.chunk.css.map": "/calculords-solver/static/css/main.dd1f34d1.chunk.css.map"
+  }
+}
