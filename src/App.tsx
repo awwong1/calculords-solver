@@ -9,14 +9,27 @@ const add = (l: number, r: number) => l + r;
 
 interface ISolProps {
   sol: ISolution;
+  rawCards: string;
   setRawCards: React.Dispatch<React.SetStateAction<string>>;
   setRawNumbers: React.Dispatch<React.SetStateAction<string>>;
   setSolutions: React.Dispatch<React.SetStateAction<ISolution[]>>;
 }
-const SolutionItem: React.FC<ISolProps> = ({ sol, setRawCards, setRawNumbers, setSolutions }: ISolProps) => {
+const SolutionItem: React.FC<ISolProps> = ({ sol, rawCards, setRawCards, setRawNumbers, setSolutions }: ISolProps) => {
   const applySolution: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
-    setRawCards(sol.ints.join(", "));
+
+    // apply the difference
+    const ogCards = toNumberList(rawCards);
+    const diff = sol.ints.slice();
+    const remain = ogCards.filter((i) => {
+      const match = diff.indexOf(i);
+      if (match >= 0) {
+        diff.splice(match, 1);
+      }
+      return match < 0;
+    });
+    setRawCards(remain.join(", "));
+
     setSolutions([sol]);
     setRawNumbers("");
   };
@@ -93,7 +106,7 @@ const App: React.FC = () => {
       </form>
       {solutions.length > 0 && <div>
         <h2>Results ({solutions.length})</h2>
-        {solutions.map((sol) => SolutionItem({ sol, setRawCards, setRawNumbers, setSolutions }))}
+        {solutions.map((sol) => SolutionItem({ sol, rawCards, setRawCards, setRawNumbers, setSolutions }))}
       </div>
       }
     </>
