@@ -33,7 +33,6 @@ const SolutionItem: React.FC<ISolProps> = ({ sol, setRawCards, setRawNumbers, se
 const App: React.FC = () => {
   const [rawCards, setRawCards] = useState("17, 6, 2, 35, 50");
   const [rawNumbers, setRawNumbers] = useState("3, 4, 2, 7, 8, 4, 1");
-  const [loading, setLoading] = useState(false);
   const [solutions, setSolutions] = useState<ISolution[]>([]);
 
   const onChangeInput: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -52,47 +51,46 @@ const App: React.FC = () => {
 
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    setLoading(true);
-    try {
-      const sols = findSolutions(toNumberList(rawCards), toNumberList(rawNumbers));
-      sols.sort((a, b) => {
-        const l = b.ints.length - a.ints.length;
-        if (l === 0) {
-          return b.ints.reduce(add) - a.ints.reduce(add);
-        }
-        return l;
-      });
-      if (sols.length === 0) {
-        sols.push({
-          ints: [NaN],
-          stack: ["impossible"],
-        });
+    const sols = findSolutions(toNumberList(rawCards), toNumberList(rawNumbers));
+    sols.sort((a, b) => {
+      const l = b.ints.length - a.ints.length;
+      if (l === 0) {
+        return b.ints.reduce(add) - a.ints.reduce(add);
       }
-      setSolutions(sols);
-    } finally {
-      setLoading(false);
+      return l;
+    });
+    if (sols.length === 0) {
+      sols.push({
+        ints: [NaN],
+        stack: ["impossible"],
+      });
     }
+    setSolutions(sols);
   };
 
   return (
     <>
       <header>
         <h1>Calculords Solver</h1>
+        <ul>
+          <li>
+            <a style={{ color: "#ffffff" }} href="http://calculords.com/">Calculords</a>
+          </li>
+        </ul>
       </header>
       <form className="form" onSubmit={onSubmit}>
         <label className="label">
           Cards:
-          <input type="text" name="cards" value={rawCards} onChange={onChangeInput} disabled={loading} />
+          <input type="text" name="cards" value={rawCards} onChange={onChangeInput} />
           {rawCards ? <code>{JSON.stringify(toNumberList(rawCards))}</code> : <code>nil</code>}
         </label>
         <label className="label">
           Numbers:
-          <input type="text" name="numbers" value={rawNumbers} onChange={onChangeInput} disabled={loading} />
+          <input type="text" name="numbers" value={rawNumbers} onChange={onChangeInput} />
           {rawNumbers ? <code>{JSON.stringify(toNumberList(rawNumbers))}</code> : <code>nil</code>}
         </label>
-        <input type="submit" value="solve" disabled={loading}/>
+        <input type="submit" value="solve" />
       </form>
-      {loading && <h2>Searching...</h2>}
       {solutions.length > 0 && <div>
         <h2>Results ({solutions.length})</h2>
         {solutions.map((sol) => SolutionItem({ sol, setRawCards, setRawNumbers, setSolutions }))}
